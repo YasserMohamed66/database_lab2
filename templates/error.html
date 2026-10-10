@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Error {{ code }}{% endblock %}
+
+{% block body %}
+<main class="auth-page">
+
+    <section class="card error-card">
+
+        <p class="error-code">{{ code }}</p>
+
+        <h1>Oops</h1>
+
+        <p class="subtitle">{{ message }}</p>
+
+        <a class="btn btn-primary btn-block" href="{{ url_for('todos') }}">Go to my list</a>
+
+    </section>
+
+</main>
+{% endblock %}

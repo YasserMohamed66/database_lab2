@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<main class="auth-page">
+
+    <section class="card">
+
+        <h1>Create Account</h1>
+
+        <p class="subtitle">
+            Create your account to manage your to-do list.
+        </p>
+
+        {# novalidate: only OUR messages appear, the same ones the server sends #}
+        <form id="registerForm" method="post" action="{{ url_for('register') }}" novalidate>
+
+            {{ field("name", "name", "Name", "text", "Enter your name", "name", errors, form.get("name", ""), 100) }}
+            {{ field("email", "email", "Email", "email", "Enter your email", "email", errors, form.get("email", ""), 255) }}
+            {{ field("password", "password", "Password", "password", "Enter your password", "new-password", errors) }}
+            {{ field("confirmPassword", "confirm_password", "Confirm Password", "password", "Confirm your password", "new-password", errors) }}
+
+            <button type="submit" class="btn btn-primary btn-block">
+                Create Account
+            </button>
+
+        </form>
+
+        <p class="switch-link">
+            Already have an account?
+            <a href="{{ url_for('login') }}">Login</a>
+        </p>
+
+    </section>
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='register.js') }}"></script>
+{% endblock %}

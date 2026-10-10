@@ -1,0 +1,25 @@
+{#
+    One form field: label + input + error message.
+    "errors" is a dict {input_name: message}. Jinja escapes every value,
+    so text typed by a user can never run as HTML.
+    Passwords are never sent back into the page.
+#}
+{% macro field(id, name, label, type, placeholder, autocomplete, errors, value="", maxlength=None) %}
+<div class="form-group">
+    <label for="{{ id }}">{{ label }}</label>
+
+    <input
+        type="{{ type }}"
+        id="{{ id }}"
+        name="{{ name }}"
+        placeholder="{{ placeholder }}"
+        autocomplete="{{ autocomplete }}"
+        {% if maxlength %}maxlength="{{ maxlength }}"{% endif %}
+        {% if type != "password" %}value="{{ value }}"{% endif %}
+        aria-describedby="{{ id }}Error"
+        {% if errors.get(name) %}aria-invalid="true"{% endif %}
+    >
+
+    <p class="error-message{% if errors.get(name) %} visible{% endif %}" id="{{ id }}Error" aria-live="polite">{{ errors.get(name, "") }}</p>
+</div>
+{% endmacro %}
